@@ -1,0 +1,14 @@
+{
+  "name": "nbrno-admin",
+  "scripts": {
+    "start": "server.js"
+    },
+    "version": "0.0.1",
+    "engines": {
+      "node": "0.10.x"
+      },
+      "dependencies": {
+        "express": "3.4.x",
+        "mongoose": "3.8.x"
+      }
+    }
