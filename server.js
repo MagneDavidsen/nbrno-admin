@@ -6,9 +6,6 @@ var path = require('path');
 var app = express();
 
 var port = process.env.PORT || 8080;
-var env = process.env.NODE_ENV;
-
-var dist = env === 'production' ? 'dist' : 'client/src';
 
 app.configure(function(){
   app.use(express.favicon());
@@ -16,7 +13,6 @@ app.configure(function(){
   app.use(express.bodyParser());
   app.use(express.methodOverride());
   app.use(app.router);
-  app.use(express.static(path.join(__dirname, dist)));
 });
 
 var form = "<!DOCTYPE HTML><html><body>" +
@@ -25,6 +21,10 @@ var form = "<!DOCTYPE HTML><html><body>" +
 "<input type='file' name='image'/>" +
 "<input type='submit' /></form>" +
 "</body></html>";
+
+
+app.get('/rappers', controller.getRappers);
+app.get('/scorelist', controller.getScoreList);
 
 
 app.get('/admin/createRapper', function (req, res){
@@ -43,8 +43,7 @@ app.post('/admin/createRapper', function(req, res) {
 
   controller.createRapper(rapperName, imageName, imageData, imageType)
 
-  res.send({redirect: '/admin/createRapper'});
-  return next();
+  res.redirect('/admin/createRapper');
 });
 
 var server = app.listen(port, function() {
